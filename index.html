@@ -9,14 +9,33 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #1a1a1a; /* Dark background color */
-            color: white; /* White text color */
+            min-height: 100vh;
+            /* Cool animated gradient background */
+            background: linear-gradient(-45deg, #1a1a1a, #005678, #101032, #0f2027, #1c92d2, #0f2027, #232526, #24243e);
+            background-size: 400% 400%;
+            animation: gradientBG 18s ease infinite;
+            color: white;
+        }
+        @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            25% {background-position: 50% 100%;}
+            50% {background-position: 100% 50%;}
+            75% {background-position: 50% 0%;}
+            100% {background-position: 0% 50%;}
+        }
+        /* Optional: subtle glowing effect for content */
+        main, header, footer {
+            background: rgba(30, 30, 40, 0.80);
+            border-radius: 16px;
+            box-shadow: 0 4px 32px 0 rgba(0,0,0,0.25);
+            backdrop-filter: blur(2px);
         }
         header {
-            background-color: #333;
+            background-color: rgba(51,51,51,0.90);
             color: white;
             padding: 1rem 0;
             text-align: center;
+            margin: 0 0 1rem 0;
         }
         main {
             max-width: 800px;
@@ -24,7 +43,8 @@
             padding: 1rem;
         }
         h1, h2 {
-            color: white;
+            color: #fff;
+            text-shadow: 0 2px 10px #00aaff88, 0 0px 2px #000;
         }
         ul {
             list-style-type: none;
@@ -36,20 +56,33 @@
         ul li a {
             color: #00aaff; /* Light blue color for links */
             text-decoration: none;
+            transition: color 0.2s, text-shadow 0.2s;
+            text-shadow: 0 0 8px #00aaff55;
         }
         ul li a:hover {
-            text-decoration: underline;
+            color: #fff;
+            text-shadow: 0 0 16px #00fff7, 0 0 4px #00aaff;
         }
         footer {
             text-align: center;
             padding: 1rem 0;
-            background-color: #333;
+            background-color: rgba(51,51,51,0.90);
             color: white;
             margin-top: 2rem;
+        }
+        /* Optional: animated stars effect */
+        .stars {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 0;
         }
     </style>
 </head>
 <body>
+    <!-- Animated Stars Canvas -->
+    <canvas class="stars"></canvas>
+
     <header>
         <h1>Welcome to My Website Portfolio</h1>
     </header>
@@ -73,11 +106,67 @@
         </section> 
         <h2> other Game Websites</h2>
         <ul>
-            <li><a href="https://</li>
+            <li><a href=""</li>
         </ul>
     </main>
     <footer>
         <p>&copy; 2025 ALPHA-JR1890. All Rights Reserved.</p>
     </footer>
+    <script>
+    // Animated stars background
+    const canvas = document.querySelector('.stars');
+    const ctx = canvas.getContext('2d');
+    let stars = [], w, h, dpr = window.devicePixelRatio || 1;
+
+    function resize() {
+        w = window.innerWidth;
+        h = window.innerHeight;
+        canvas.width = w * dpr;
+        canvas.height = h * dpr;
+        canvas.style.width = w + 'px';
+        canvas.style.height = h + 'px';
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.scale(dpr, dpr);
+        stars = [];
+        for (let i = 0; i < 120; i++) {
+            stars.push({
+                x: Math.random() * w,
+                y: Math.random() * h,
+                r: Math.random() * 1.2 + 0.2,
+                a: Math.random() * 360,
+                s: Math.random() * 0.4 + 0.05
+            });
+        }
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, w, h);
+        for (let star of stars) {
+            ctx.save();
+            ctx.globalAlpha = 0.7 + 0.3 * Math.sin(Date.now()/300 + star.a);
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.r, 0, 2 * Math.PI);
+            ctx.fillStyle = "#fff";
+            ctx.shadowColor = "#00aaff";
+            ctx.shadowBlur = 8;
+            ctx.fill();
+            ctx.restore();
+            // twinkle
+            star.a += star.s;
+            // move a tiny bit
+            star.x += 0.02 * (Math.random() - 0.5);
+            star.y += 0.02 * (Math.random() - 0.5);
+            // wrap around
+            if (star.x < 0) star.x = w;
+            if (star.x > w) star.x = 0;
+            if (star.y < 0) star.y = h;
+            if (star.y > h) star.y = 0;
+        }
+        requestAnimationFrame(draw);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+    draw();
+    </script>
 </body>
 </html>
