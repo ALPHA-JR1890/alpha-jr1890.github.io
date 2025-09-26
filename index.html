@@ -25,7 +25,6 @@
             75% {background-position: 50% 0%;}
             100% {background-position: 0% 50%;}
         }
-        /* Optional: subtle glowing effect for content */
         main, header, footer {
             background: rgba(30, 30, 40, 0.80);
             border-radius: 16px;
@@ -38,6 +37,14 @@
             padding: 1rem 0;
             text-align: center;
             margin: 0 0 1rem 0;
+        }
+        .logo {
+            width: 95px;
+            height: 87px;
+            object-fit: contain;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 16px rgba(0,170,255,0.3);
         }
         main {
             max-width: 800px;
@@ -56,7 +63,7 @@
             margin: 0.5rem 0;
         }
         ul li a {
-            color: #00aaff; /* Light blue color for links */
+            color: #00aaff;
             text-decoration: none;
             transition: color 0.2s, text-shadow 0.2s;
             text-shadow: 0 0 8px #00aaff55;
@@ -72,7 +79,6 @@
             color: white;
             margin-top: 2rem;
         }
-        /* Optional: animated stars effect */
         .stars {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -86,6 +92,7 @@
     <canvas class="stars"></canvas>
 
     <header>
+        <img src="https://cdn.jsdelivr.net/gh/ALPHA-JR1890/alpha-jr1890.github.io@main/logoA.png" alt="Logo" class="logo">
         <h1>Welcome to My Website Portfolio</h1>
     </header>
     <main>
@@ -108,7 +115,7 @@
         </section> 
         <h2> other Game Websites</h2>
         <ul>
-            <li><a href=""</li>
+            <li><a href=""></li>
         </ul>
     </main>
     <footer>
